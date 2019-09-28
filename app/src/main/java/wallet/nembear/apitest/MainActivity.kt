@@ -200,7 +200,8 @@ class MainActivity : AppCompatActivity() {
                     val picId: Int = resources.getIdentifier(fileName, "drawable", packageName)
                     val fileName2: String = if (6 > getTx){"get" + (getTx)} else{"get" + (6)}
                     val gifMovie: Int = resources.getIdentifier(fileName2, "raw", packageName)
-
+                    val fileName3: String = "get" + (7)
+                    val gifMovie2: Int = resources.getIdentifier(fileName3, "raw", packageName)
 
 
 
@@ -219,9 +220,17 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     if (getTx > 0) {
-                        imageView.post(Runnable {
-                           Glide.with(this@MainActivity).load(gifMovie).into(imageView)
-                        })
+                        if (nowTx >= 1000){
+                            imageView.post(Runnable {
+                                Glide.with(this@MainActivity).load(gifMovie2).into(imageView)
+                            })
+                        }
+
+                        else {
+                            imageView.post(Runnable {
+                                Glide.with(this@MainActivity).load(gifMovie).into(imageView)
+                            })
+                        }
                     }
 
                     else {
@@ -256,7 +265,9 @@ class MainActivity : AppCompatActivity() {
                         saveTransactionId(id)
                         saveNowTx(nowTx)
 
-                        if(getMessage1 != "��") {Toast.makeText(this@MainActivity,getMessage1, Toast.LENGTH_LONG).show()}
+                        if(getMessage1 != "��") {
+                            Toast.makeText(this@MainActivity,getMessage1, Toast.LENGTH_LONG).show()
+                        }
 
                         return@subscribe
                     }
@@ -887,11 +898,14 @@ class MainActivity : AppCompatActivity() {
         return getNowTx
     }
 
+
+
     companion object {
         private const val ADDRESS = "NDPOHD4J3EZ3AF4GOKCQT4UU3QAFGDANKP5R4MKU"
         private const val SHAREDPREFERENCES_PACKAGE_NAME = "DataSave"
         private const val LATEST_TRANSACTION_ID = "latestTransactionId"
         private const val LATEST_NOW_TX = "latestNowTx"
+
     }
 
     private fun leanBackMode(){
